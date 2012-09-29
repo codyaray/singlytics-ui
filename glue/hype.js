@@ -4,13 +4,7 @@ var request = require('request'),
 var getApp = function (id, callback) {
   var url = host + '/analytics/' + id + '/'
   console.log('calling hyperion: ' + url)
-  request(url, function (error, response, body) {
-    if (!error) {
-      callback(body)
-    } else {
-      console.log('error' + error)
-    }
-  })
+  return request(url);
 }
 
 var hype = {

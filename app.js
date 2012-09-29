@@ -18,9 +18,7 @@ app.get("/", function (req, res) {
 
 app.get("/application/json/:id", function (req, res) {
   var appId = req.params.id
-  hype.getApp(appId, function (data) {
-    res.send(data)
-  })
+  hype.getApp(appId).pipe(res);
 })
 
 app.get("/application/:id", function (req, res) {
