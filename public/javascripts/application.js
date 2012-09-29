@@ -1,3 +1,2 @@
-if(console && console.log) {
-  console.log(data);
-}
+var jqxhr = $.ajax( "/application/json/" + appName )
+    .done(function(data) { console.log(data) });

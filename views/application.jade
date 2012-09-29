@@ -2,9 +2,9 @@ extends layout
 
 append scripts
   script
-    var data = !{data}
+    var appName = "#{appId}";
   script(src='/javascripts/application.js')
 
 append content
   p looking at application #{appId}
-  pre #{data}
+  pre#data
