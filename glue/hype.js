@@ -1,5 +1,5 @@
 var request = require('request'),
-    host = 'http://obscure-ocean-5496.herokuapp.com';
+    host = 'http://singlytics-hyperion.herokuapp.com';
 
 var getApp = function (id, callback) {
   var url = host + '/analytics/' + id
