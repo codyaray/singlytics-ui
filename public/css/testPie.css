@@ -1,0 +1,165 @@
+  <style type="text/css">
+    svg {
+      font: 10px sans-serif;
+      display: block;
+    }
+  </style>
+
+
+
+  <STYLE type="text/css">
+    div.div_Header {
+width: 100%;
+border:2px solid White;
+border-radius:7px;
+background: WhiteSmoke;
+font: bold 14px Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:WhiteSmoke;
+text-align:center;
+    }
+    h1.h1_BodyHeader {
+text-align:center;
+font: bold 1.5em Arial;
+    }
+    h2.h2_LeftMenuHeader {
+text-align:center;
+font: bold 1.2em Arial;
+    }
+    h3.h3_Body {
+      text-align:center;
+    }
+    p.p_Red {
+      color:Red;
+    }
+    table.table_Header {
+width: 100%;
+text-align:center;
+    }
+    td.td_HeaderLeft {
+text-align:left;
+    }
+    td.td_HeaderRight {
+text-align:right;
+    }
+    div.div_Menu {
+width: 100%;
+border:2px solid White;
+border-radius:7px;
+background: MidnightBlue;
+font: bold 14px Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:White;
+text-align:center;
+    }
+    p.p_Left {
+      font-family:Arial, Helvetica, sans-serif;
+      color:Black;
+      text-align:left;
+      padding-left: 5px;
+      font: normal 14px Arial;
+    }
+    table.table_Body {
+width: 100%;
+height: 100%;
+padding: 0;
+    }
+    td.td_BodyLeft {
+width: 250px;
+height: 100%;
+padding: 0;
+    }
+    li.li_LeftMenu {
+text-align:left;
+font: normal 14px Arial;
+    }
+    a.a_LeftMenuNoUnderLine {
+text-decoration:  none;
+    }
+    div.div_Body {
+height: 100%;
+width: 100%;
+position: relative;
+border:2px solid White;
+border-radius:7px;
+background: WhiteSmoke;
+font: bold 14px Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:Black;
+text-align:center;
+    }
+    div.div_Footer {
+width: 100%;
+border:2px solid White;
+border-radius:7px;
+background: MidnightBlue;
+font: bold 14px Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:White;
+text-align:center;
+    }
+    p.p_if4itMessage {
+width: 100%;
+background: White;
+font: bold .75em Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:GoldenRod;
+text-align:center;
+    }
+    .menuButton{
+      background-color: MidnightBlue;
+    }
+    .menuButton li{
+height: 100%;
+list-style: none;
+display: inline;
+    }
+    .menuButton li a{
+height: 100%;
+padding: 3px 0.5em;
+text-decoration: none;
+color: White;
+background-color: MidnightBlue;
+border: 2px solid MidnightBlue;
+    }
+    .menuButton li a:hover{
+height: 100%;
+color: MidnightBlue;
+background-color: White;
+border-style: outset;
+background-color: White;
+    }
+    .menuButton li a:active{
+      height: 100%;
+      border-style: inset;
+      color: MidnightBlue;
+      background-color: White;
+    }
+    .menuButton li a.disabled{
+      height: 100%;
+      padding: 3px 0.5em;
+      text-decoration: none;
+      color: MidnightBlue;
+      background-color: White;
+      border: 2px solid MidnightBlue;
+      border-style: inset;
+      border-color: White;
+    }
+  </STYLE>
+
+  <STYLE type="text/css">
+    div.div_RootBody {
+position: relative;
+border:2px solid White;
+border-radius:7px;
+background: WhiteSmoke;
+font: normal 14px Arial;
+font-family:Arial, Helvetica, sans-serif;
+color:Black;
+padding: 0px 1em;
+text-align:left;
+    }
+  </STYLE>
+  <!--[if gt IE 7]>
+    <style>body { overflow-y:scroll; } </style>
+  <![endif]-->
