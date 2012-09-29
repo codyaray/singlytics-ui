@@ -95,11 +95,29 @@ textarea {
 
 
    .container {
-     padding: 40px;
+     padding: 40px 0px;
+     width: 945px;
+     margin: 0 auto;
    }
 
+   header {
+     background:  url("../images/header-repeat.png") #fff repeat-x top center; 
+   }
 
+   header .center-logo{
+     height: 151px;
+     min-width: 1024px;
+     background:  url("../images/singlytics_header_BG.png") transparent no-repeat top center; 
+   }
 
+   header .center-logo .logo {
+     width: 945px;
+     margin: 0 auto;
+     overflow: hidden;
+     text-indent:-9999px;
+     display: block;
+     height: 151px;
+   }
 
 
 
