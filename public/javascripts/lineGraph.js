@@ -59,8 +59,8 @@ var jqxhr = $.ajax( "/event/json/ninja-mob/myevent/")
   // [15,11],[16,11],[16,10],[16,10],[16,9],[18,10],[16,10],[17,18],[17,17],[17,12],[18,27],[17,17],[17,16],[17,12],[17,15],[17,15],[18,13],[18,13],[17,13],[18,13],[18,15],[18,13],[18,13],[20,12],[19,13],[18,13],[18,12],[18,13],[18,13],
   // [19,14],[19,13],[19,13],[18,17],[19,27],[19,18],[19,16],[19,12],[20,13],[19,13],[19,13],[20,13]];
 		
-  var startTime = new Date(1348938900000);
-  var endTime = new Date(1349025300000);
+  var startTime = new Date(data.datapoints[0].time);
+  var endTime = new Date(data.datapoints[data.datapoints.length - 1].time);
   var timeStep = 300000;
 		
   // X scale starts at epoch time 1335035400000, ends at 1335294600000 with 300s increments
