@@ -197,10 +197,6 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
 
 };
 
-function drawHorizontalBar(){
-  
-};
-
 function drawTime(){
   
 };
@@ -285,4 +281,6 @@ function drawTime(){
 	drawPie("Pie3", locgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
 
 });
+
+
   
