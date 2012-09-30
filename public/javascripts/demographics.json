@@ -5,18 +5,23 @@
       "en_US": 1
     }, 
     "gender": {
-      "unknown": 25, 
-      "male": 38,
-      "female": 23
+      "male": 10,
+      "female": 31,
+      "unknown": 5
     }, 
     "locations": {
-      "unknown": 4, 
-      "Chicago": 1,
-      "hell": 9
+      "Chicago": 17,
+      "San Francisco": 29,
+      "New York" : 10,
+      "Hong Kong" : 2,
+      "Moscow" : 1,
+      "Unknown": 4
     }, 
     "language": {
-      "English|Japanese": 1, 
-      "unknown": 0
+      "English|Japanese": 5,
+      "English" : 40,
+      "Spanish" : 13, 
+      "unknown": 2
     }, 
     "timezone": {
       "-5:00": 1, 
