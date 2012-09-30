@@ -114,6 +114,10 @@ textarea {
      margin: 0 auto;
      background: #26385c;
    }
+   
+   .content {
+     margin-left: 40px;
+   }
 
    header {
      position: relative;
@@ -327,6 +331,7 @@ textarea {
     }
     
     h1{
+        margin-left: 5px;
         color: white;
         
     }

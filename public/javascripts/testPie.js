@@ -1,13 +1,4 @@
-
-    // This example lays out multiple interactive pie charts on a page with multiple HTML layout constructs.
-    // Created by Frank Guerino : "http://www.guerino.net"
-
-    // Data Used for this example...
-    
-     
-    
-    
-    function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
+function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
 
 // pieName => A unique drawing identifier that has no spaces, no "." and no "#" characters.
 // dataSet => Input Data for the chart, itself.
@@ -26,99 +17,85 @@
 //              1 = Sort by arc value size.
 
 // Color Scale Handling...
-      var colorScale = d3.scale.category20c();
-      switch (colors)
-      {
-        case "colorScale10":
-          colorScale = d3.scale.category10();
-          break;
-        default:
-          colorScale = d3.scale.category20c();
-      };
+  var colorScale = d3.scale.category20c();
+  var canvasWidth = 700;
+  var pieWidthTotal = outerRadius * 2;;
+  var pieCenterX = outerRadius + margin/2;
+  var pieCenterY = outerRadius + margin/2;
+  var legendBulletOffset = 30;
+  var legendVerticalOffset = outerRadius - margin;
+  var legendTextOffset = 20;
+  var textVerticalSpace = 20;
+  var canvasHeight = 0;
+  var pieDrivenHeight = outerRadius*2 + margin*2;
+  var legendTextDrivenHeight = (dataSet.length * textVerticalSpace) + margin*2;
+  // Autoadjust Canvas Height
+ 
+  if (pieDrivenHeight >= legendTextDrivenHeight) {
+    canvasHeight = pieDrivenHeight; }
+  else  {
+    canvasHeight = legendTextDrivenHeight; }
+ 
+  var x = d3.scale.linear().domain([0, d3.max(dataSet, function(d) { return d.magnitude; })]).rangeRound([0, pieWidthTotal]);
+  var y = d3.scale.linear().domain([0, dataSet.length]).range([0, (dataSet.length * 20)]);
+  
+  var synchronizedMouseOver = function() {
+    var arc = d3.select(this);
+    var indexValue = arc.attr("index_value");
 
-      var canvasWidth = 700;
-      var pieWidthTotal = outerRadius * 2;;
-      var pieCenterX = outerRadius + margin/2;
-      var pieCenterY = outerRadius + margin/2;
-      var legendBulletOffset = 30;
-      var legendVerticalOffset = outerRadius - margin;
-      var legendTextOffset = 20;
-      var textVerticalSpace = 20;
+    var arcSelector = "." + "pie-" + pieName + "-arc-" + indexValue;
+    var selectedArc = d3.selectAll(arcSelector);
+    selectedArc.style("fill", "Maroon");
 
-var canvasHeight = 0;
-      var pieDrivenHeight = outerRadius*2 + margin*2;
-      var legendTextDrivenHeight = (dataSet.length * textVerticalSpace) + margin*2;
-// Autoadjust Canvas Height
-if (pieDrivenHeight >= legendTextDrivenHeight)
-{
-  canvasHeight = pieDrivenHeight;
-}
-else
-{
-  canvasHeight = legendTextDrivenHeight;
-}
+    var bulletSelector = "." + "pie-" + pieName + "-legendBullet-" + indexValue;
+    var selectedLegendBullet = d3.selectAll(bulletSelector);
+    selectedLegendBullet.style("fill", "Maroon");
 
-      var x = d3.scale.linear().domain([0, d3.max(dataSet, function(d) { return d.magnitude; })]).rangeRound([0, pieWidthTotal]);
-      var y = d3.scale.linear().domain([0, dataSet.length]).range([0, (dataSet.length * 20)]);
+    var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
+    var selectedLegendText = d3.selectAll(textSelector);
+    selectedLegendText.style("fill", "Maroon");
+  };
 
+  var synchronizedMouseOut = function() {
+    var arc = d3.select(this);
+    var indexValue = arc.attr("index_value");
 
-      var synchronizedMouseOver = function() {
-        var arc = d3.select(this);
-        var indexValue = arc.attr("index_value");
+    var arcSelector = "." + "pie-" + pieName + "-arc-" + indexValue;
+    var selectedArc = d3.selectAll(arcSelector);
+    var colorValue = selectedArc.attr("color_value");
+    selectedArc.style("fill", colorValue);
 
-        var arcSelector = "." + "pie-" + pieName + "-arc-" + indexValue;
-        var selectedArc = d3.selectAll(arcSelector);
-        selectedArc.style("fill", "Maroon");
+    var bulletSelector = "." + "pie-" + pieName + "-legendBullet-" + indexValue;
+    var selectedLegendBullet = d3.selectAll(bulletSelector);
+    var colorValue = selectedLegendBullet.attr("color_value");
+    selectedLegendBullet.style("fill", colorValue);
 
-        var bulletSelector = "." + "pie-" + pieName + "-legendBullet-" + indexValue;
-        var selectedLegendBullet = d3.selectAll(bulletSelector);
-        selectedLegendBullet.style("fill", "Maroon");
+    var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
+    var selectedLegendText = d3.selectAll(textSelector);
+    selectedLegendText.style("fill", "Blue");
+  };
 
-        var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
-        var selectedLegendText = d3.selectAll(textSelector);
-        selectedLegendText.style("fill", "Maroon");
-      };
+  var tweenPie = function (b) {
+    b.innerRadius = 0;
+    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+    return function(t) {
+      return arc(i(t));
+    };
+  }
 
-      var synchronizedMouseOut = function() {
-        var arc = d3.select(this);
-        var indexValue = arc.attr("index_value");
+  // Create a drawing canvas...
+  var canvas = d3.select(selectString)
+    .append("svg:svg") //create the SVG element inside the <body>
+      .data([dataSet]) //associate our data with the document
+      .attr("width", canvasWidth) //set the width of the canvas
+      .attr("height", canvasHeight) //set the height of the canvas
+      .append("svg:g") //make a group to hold our pie chart
+        .attr("transform", "translate(" + pieCenterX + "," + pieCenterY + ")") // Set center of pie
 
-        var arcSelector = "." + "pie-" + pieName + "-arc-" + indexValue;
-        var selectedArc = d3.selectAll(arcSelector);
-        var colorValue = selectedArc.attr("color_value");
-        selectedArc.style("fill", colorValue);
-
-        var bulletSelector = "." + "pie-" + pieName + "-legendBullet-" + indexValue;
-        var selectedLegendBullet = d3.selectAll(bulletSelector);
-        var colorValue = selectedLegendBullet.attr("color_value");
-        selectedLegendBullet.style("fill", colorValue);
-
-        var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
-        var selectedLegendText = d3.selectAll(textSelector);
-        selectedLegendText.style("fill", "Blue");
-      };
-
-      var tweenPie = function (b) {
-        b.innerRadius = 0;
-        var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-        return function(t) {
-          return arc(i(t));
-        };
-      }
-
-      // Create a drawing canvas...
-      var canvas = d3.select(selectString)
-        .append("svg:svg") //create the SVG element inside the <body>
-          .data([dataSet]) //associate our data with the document
-          .attr("width", canvasWidth) //set the width of the canvas
-          .attr("height", canvasHeight) //set the height of the canvas
-          .append("svg:g") //make a group to hold our pie chart
-            .attr("transform", "translate(" + pieCenterX + "," + pieCenterY + ")") // Set center of pie
-
-// Define an arc generator. This will create <path> elements for using arc data.
-      var arc = d3.svg.arc()
-          .innerRadius(innerRadius) // Causes center of pie to be hollow
-          .outerRadius(outerRadius);
+  // Define an arc generator. This will create <path> elements for using arc data.
+  var arc = d3.svg.arc()
+    .innerRadius(innerRadius) // Causes center of pie to be hollow
+      .outerRadius(outerRadius);
 
 // Define a pie layout: the pie angle encodes the value of dataSet.
 // Since our data is in the form of a post-parsed CSV string, the
@@ -218,87 +195,86 @@ else
             .on('mouseover', synchronizedMouseOver)
             .on("mouseout", synchronizedMouseOut);
 
-  };
+};
   
-  d3.json("/javascripts/demographics.json", function(json){ 
-    	    	
-    	var ages = json.demographics.ages;    	
-    	var genders = json.demographics.gender;
-    	var locations = json.demographics.locations;
-    	
-    	var agegroups = {
-			 "12to17": 0,
-			 "18to24": 0,
-			 "25to34": 0,
-			 "35to44": 0,
-			 "45to54": 0,
-			 "55to64": 0,
-			 "65andup": 0,
-			 "unknown": 0 };
-			 
-			 var gendergroups = {
-			   "male": 0,
-			   "female": 0, 
-			   "unknown": 0
-			 };
-			 
-			 var locationgroups = {
- 			   "Chicago": 0,
- 			   "unknown": 0
- 			 };
- 			
- 			var count =0;
-    	
-    	for(age in ages){
-    		if(age >= 12 && age <= 17){
-    			agegroups["12to17"] += ages[age];
-    		} else if(age >= 18 && age <= 24){
-    			agegroups["18to24"] += ages[age];
-    		} else if(age >= 25 && age <= 34){
-    			agegroups["25to34"] += ages[age];
-    		} else if(age >= 35 && age <= 44){
-    			agegroups["35to44"] += ages[age];
-    		} else if(age >= 45 && age <= 54){
-    			agegroups["45to54"] += ages[age];
-    		} else if(age >= 55 && age <= 64){
-    			agegroups["55to64"] += ages[age];
-    		} else if(age >= 65) {
-    			agegroups["65andup"] += ages[age];
-    		} else if(age == "unknown"){
-    			agegroups["unknown"] += ages[age];
-    		}
-    	}
-    	
-    	for(gender in genders){
-    	    gendergroups[gender] += genders[gender];
-    	}
-    	
-    	for (loc in locations){
-    	    locationgroups[loc] += locations[loc];
-    	}
-    	
-    	var agegroups = [
-      		{legendLabel: "12 - 17", magnitude: agegroups["12to17"]},
-      		{legendLabel: "18 - 24", magnitude: agegroups["18to24"]},
-      		{legendLabel: "25 - 34", magnitude: agegroups["25to34"]},
-      		{legendLabel: "35 - 44", magnitude: agegroups["35to44"]},
-      		{legendLabel: "45 - 54", magnitude: agegroups["45to54"]},
-      		{legendLabel: "55 - 64", magnitude: agegroups["55to64"]},
-      		{legendLabel: "65+", magnitude: agegroups["65andup"]},
-      		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
+ d3.json("/javascripts/demographics.json", function(json){ 
+  var ages = json.demographics.ages;    	
+  var genders = json.demographics.gender;
+  var locations = json.demographics.locations;
+  
+  var agegroups = {
+	 "12to17": 0,
+	 "18to24": 0,
+	 "25to34": 0,
+	 "35to44": 0,
+	 "45to54": 0,
+	 "55to64": 0,
+	 "65andup": 0,		
+	 "unknown": 0 };
+	
+	var gendergroups = {
+	  "male": 0,
+		"female": 0, 
+		"unknown": 0
+	};
+		 
+	var locationgroups = {
+	    "Chicago": 0,
+			"unknown": 0
+		};
+		
+		var count =0;
+  	
+  for(age in ages){
+		if(age >= 12 && age <= 17){
+			agegroups["12to17"] += ages[age];
+		} else if(age >= 18 && age <= 24){
+			agegroups["18to24"] += ages[age];
+		} else if(age >= 25 && age <= 34){
+			agegroups["25to34"] += ages[age];
+		} else if(age >= 35 && age <= 44){
+			agegroups["35to44"] += ages[age];
+		} else if(age >= 45 && age <= 54){
+			agegroups["45to54"] += ages[age];
+		} else if(age >= 55 && age <= 64){
+			agegroups["55to64"] += ages[age];
+		} else if(age >= 65) {
+			agegroups["65andup"] += ages[age];
+		} else if(age == "unknown"){
+			agegroups["unknown"] += ages[age];
+		}
+	}
+	
+  for(gender in genders){
+	    gendergroups[gender] += genders[gender];
+	}
+	
+	for (loc in locations){
+	    locationgroups[loc] += locations[loc];
+	}
+	
+	var agegroups = [
+  		{legendLabel: "12 - 17", magnitude: agegroups["12to17"]},
+  		{legendLabel: "18 - 24", magnitude: agegroups["18to24"]},
+  		{legendLabel: "25 - 34", magnitude: agegroups["25to34"]},
+  		{legendLabel: "35 - 44", magnitude: agegroups["35to44"]},
+  		{legendLabel: "45 - 54", magnitude: agegroups["45to54"]},
+  		{legendLabel: "55 - 64", magnitude: agegroups["55to64"]},
+  		{legendLabel: "65+", magnitude: agegroups["65andup"]},
+  		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
+  
+  var gendergroups = [
+      {legendLabel: "Male", magnitude: gendergroups["male"] },
+      {legendLabel: "Female", magnitude: gendergroups["female"] },
+      {legendLabel: "Unknown", magnitude: gendergroups["unknown"] }];		
       
-      var gendergroups = [
-          {legendLabel: "Male", magnitude: gendergroups["male"] },
-          {legendLabel: "Female", magnitude: gendergroups["female"] },
-          {legendLabel: "Unknown", magnitude: gendergroups["unknown"] }];		
-          
-      var locationgroups = [
-          {legendLabel: "Chicago", magnitude: locationgroups["Chicago"]},
-          {legendLabel: "Unknown", magnitude: locationgroups["unknown"]} ];
-    	
-    	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
-    	drawPie("Pie2", gendergroups, "div.genders", "colorScale20", 10, 100, 5, 0);
-    	drawPie("Pie3", locationgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
- 
-    });
+  var locationgroups = [
+      {legendLabel: "Chicago", magnitude: locationgroups["Chicago"]},
+      {legendLabel: "Unknown", magnitude: locationgroups["unknown"]} ];
+	
+	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
+	drawPie("Pie2", gendergroups, "div.genders", "colorScale20", 10, 100, 5, 0);
+	drawPie("Pie3", locationgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
+
+});
   

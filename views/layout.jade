@@ -12,11 +12,15 @@ html
       div.center-logo
         a.logo(href='/') Singlytics
     div.container
-      h1 Dashboard
-      div.ages
-      div.genders
-      div.locations
-      block content
+      h1 Dashboard for App: #{appId}
+      div.content
+        h2 Age Demographics
+        div.ages
+        h2 Gender Demographics
+        div.genders
+        h2 Location Demographics
+        div.locations
+    block content
     block scripts
       script(src='/javascripts/jquery-1.8.2.js')
       script(src='/javascripts/d3.v2.js')
