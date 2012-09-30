@@ -2,13 +2,26 @@
 var jqxhr = $.ajax( "/event/json/ninja-mob/myevent/")
     .done(function (data) {
   
-  
-      console.log(data);
+  Array.prototype.max = function() {
+  var max = this[0];
+  var len = this.length;
+  for (var i = 1; i < len; i++) if (this[i] > max) max = this[i];
+  return max;
+  }
+      
   // define dimensions of graph
-  var m = [30, 50, 30, 50]; // margins
+  var m = [30, 50, 30, 50]; // margins  
   var w = 900 - m[1] - m[3];	// width
   var h = 400 - m[0] - m[2]; // height
-			
+	
+  var sData = [];
+  var mdata=[];
+  for(var i = 0; i < data.datapoints.length; i++) {
+    sData.push([data.datapoints[i].value]);
+    mdata.push(data.datapoints[i].value);
+  }
+  
+  console.log(sData);
   /* 
   * sample data to plot over time
   * 		[Success, Failure]
@@ -46,15 +59,15 @@ var jqxhr = $.ajax( "/event/json/ninja-mob/myevent/")
   // [15,11],[16,11],[16,10],[16,10],[16,9],[18,10],[16,10],[17,18],[17,17],[17,12],[18,27],[17,17],[17,16],[17,12],[17,15],[17,15],[18,13],[18,13],[17,13],[18,13],[18,15],[18,13],[18,13],[20,12],[19,13],[18,13],[18,12],[18,13],[18,13],
   // [19,14],[19,13],[19,13],[18,17],[19,27],[19,18],[19,16],[19,12],[20,13],[19,13],[19,13],[20,13]];
 		
-  var startTime = new Date(1335035400000);
-  var endTime = new Date(1335294600000);
+  var startTime = new Date(1348938900000);
+  var endTime = new Date(1349025300000);
   var timeStep = 300000;
 		
   // X scale starts at epoch time 1335035400000, ends at 1335294600000 with 300s increments
   var x = d3.time.scale().domain([startTime, endTime]).range([0, w]);
   x.tickFormat(d3.time.format("%Y-%m-%d"));
   // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
-  var y = d3.scale.linear().domain([0, 10]).range([h, 0]);
+  var y = d3.scale.linear().domain([0, mdata.max()]).range([h, 0]);
 
   // create a line function that can convert data[] into x and y points
   var line1 = d3.svg.line()
@@ -69,7 +82,7 @@ var jqxhr = $.ajax( "/event/json/ninja-mob/myevent/")
   // verbose logging to show what's actually being done
   //console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
   // return the Y coordinate where we want to plot this datapoint
-  return y(d.dataPoints.value); // use the 1st index of data (for example, get 20 from [20,13])
+  return y(d[0]); // use the 1st index of data (for example, get 20 from [20,13])
   })
 
 
@@ -100,6 +113,6 @@ var jqxhr = $.ajax( "/event/json/ninja-mob/myevent/")
 			
   // add lines
   // do this AFTER the axes above so that the line is above the tick-lines
-  graph.append("svg:path").attr("d", line1(data)).attr("class", "data1");
+  graph.append("svg:path").attr("d", line1(sData)).attr("class", "data1");
   
 });
