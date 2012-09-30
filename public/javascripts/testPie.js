@@ -276,14 +276,12 @@ else
       		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
       
       var gendergroups = [
-          {legendLabel: "Male", magnitude: genders["male"] },
-          {legendLabel: "Female", magnitude: genders["female"] },
-          {legendLabel: "Unknown", magnitude: genders["unknown"] }];		
-    	
-    	console.log(agegroups);
+          {legendLabel: "Male", magnitude: gendergroups["male"] },
+          {legendLabel: "Female", magnitude: gendergroups["female"] },
+          {legendLabel: "Unknown", magnitude: gendergroups["unknown"] }];		
     	
     	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
-    	drawPie("Pie2", genders, "div.genders", "colorScale20", 10, 100, 5, 0);
+    	drawPie("Pie2", gendergroups, "div.genders", "colorScale20", 10, 100, 5, 0);
  
     });
   
