@@ -5,8 +5,9 @@
       "en_US": 1
     }, 
     "gender": {
-      "unknown": 0, 
-      "male": 1
+      "unknown": 25, 
+      "male": 38,
+      "female": 23
     }, 
     "location": {
       "unknown": 0, 

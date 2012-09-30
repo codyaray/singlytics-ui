@@ -223,6 +223,7 @@ else
   d3.json("/javascripts/demographics.json", function(json){ 
     	    	
     	var ages = json.demographics.ages;    	
+    	var genders = json.demographics.gender;
     	
     	var agegroups = {
 			 "12to17": 0,
@@ -233,6 +234,12 @@ else
 			 "55to64": 0,
 			 "65andup": 0,
 			 "unknown": 0 };
+			 
+			 var gendergroups = {
+			   "male": 0,
+			   "female": 0, 
+			   "unknown": 0
+			 };
     	
     	for(age in ages){
     		if(age >= 12 && age <= 17){
@@ -254,6 +261,10 @@ else
     		}
     	}
     	
+    	for(gender in genders){
+    	    gendergroups[gender] += genders[gender];
+    	}
+    	
     	var agegroups = [
       		{legendLabel: "12 - 17", magnitude: agegroups["12to17"]},
       		{legendLabel: "18 - 24", magnitude: agegroups["18to24"]},
@@ -263,10 +274,16 @@ else
       		{legendLabel: "55 - 64", magnitude: agegroups["55to64"]},
       		{legendLabel: "65+", magnitude: agegroups["65andup"]},
       		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
+      
+      var gendergroups = [
+          {legendLabel: "Male", magnitude: genders["male"] },
+          {legendLabel: "Female", magnitude: genders["female"] },
+          {legendLabel: "Unknown", magnitude: genders["unknown"] }];		
     	
     	console.log(agegroups);
     	
-    	drawPie("Pie1", agegroups, "div.container", "colorScale20", 10, 100, 5, 0);
+    	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
+    	drawPie("Pie2", genders, "div.genders", "colorScale20", 10, 100, 5, 0);
  
     });
   
