@@ -1,3 +1,5 @@
+// heavily influenced by http://bl.ocks.org/2212156
+
 function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
 
 // pieName => A unique drawing identifier that has no spaces, no "." and no "#" characters.
