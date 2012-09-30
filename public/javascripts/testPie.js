@@ -3,6 +3,42 @@
     // Created by Frank Guerino : "http://www.guerino.net"
 
     // Data Used for this example...
+    
+     d3.json("/javascripts/demographics.json", function(json){ 
+    	    	
+    	var ages = json.demographics.ages;
+    	
+    	var agegroups = {
+			 "12to17": 0,
+			 "18to24": 0,
+			 "25to34": 0,
+			 "35to44": 0,
+			 "45to54": 0,
+			 "55to64": 0,
+			 "65andup": 0 };
+    	
+    	for(age in ages){
+    		if(age >= 12 && age <= 17){
+    			agegroups["12to17"] += ages[age];
+    		} else if(age >= 18 && age <= 24){
+    			agegroups["18to24"] += ages[age];
+    		} else if(age >= 25 && age <= 34){
+    			agegroups["25to34"] += ages[age];
+    		} else if(age >= 35 && age <= 44){
+    			agegroups["35to44"] += ages[age];
+    		} else if(age >= 45 && age <= 54){
+    			agegroups["45to54"] += ages[age];
+    		} else if(age >= 55 && age <= 64){
+    			agegroups["55to64"] += ages[age];
+    		} else if(age >= 65) {
+    			agegroups["65andup"] += ages[age];
+    		}
+    	}
+    	
+    	console.log(agegroups);
+ 
+    });
+    
     var dataSet1 = [
       {legendLabel: "12 - 17", magnitude: 51},
       {legendLabel: "18 - 24", magnitude: 21},
