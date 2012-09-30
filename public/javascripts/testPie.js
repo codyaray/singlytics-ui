@@ -4,13 +4,14 @@
 
     // Data Used for this example...
     var dataSet1 = [
-      {legendLabel: "Legend String 1", magnitude: 51, link: "http://www.if4it.com"},
-      {legendLabel: "Legend String 2", magnitude: 21, link: "http://www.if4it.com/glossary.html"},
-      {legendLabel: "Legend String 3", magnitude: 31, link: "http://www.if4it.com/resources.html"},
-      {legendLabel: "Legend String 4", magnitude: 14, link: "http://www.if4it.com/taxonomy.html"},
-      {legendLabel: "Legend String 5", magnitude: 19, link: "http://www.if4it.com/disciplines.html"},
-      {legendLabel: "Legend String 6", magnitude: 47, link: "http://www.if4it.com"},
-      {legendLabel: "Legend String 7", magnitude: 27, link: "http://www.if4it.com/glossary.html"}];
+      {legendLabel: "12 - 17", magnitude: 51},
+      {legendLabel: "18 - 24", magnitude: 21},
+      {legendLabel: "25 - 34", magnitude: 31},
+      {legendLabel: "35 - 44", magnitude: 14},
+      {legendLabel: "45 - 54", magnitude: 19},
+      {legendLabel: "55 - 64", magnitude: 47},
+      {legendLabel: "65+", magnitude: 27},
+      {legendLabel: "Unknown", magnitude: 27}];
 
     function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
 
@@ -37,23 +38,14 @@
         case "colorScale10":
           colorScale = d3.scale.category10();
           break;
-        case "colorScale20":
-          colorScale = d3.scale.category20();
-          break;
-        case "colorScale20b":
-          colorScale = d3.scale.category20b();
-          break;
-        case "colorScale20c":
-          colorScale = d3.scale.category20c();
-          break;
         default:
           colorScale = d3.scale.category20c();
       };
 
       var canvasWidth = 700;
-var pieWidthTotal = outerRadius * 2;;
-var pieCenterX = outerRadius + margin/2;
-var pieCenterY = outerRadius + margin/2;
+      var pieWidthTotal = outerRadius * 2;;
+      var pieCenterX = outerRadius + margin/2;
+      var pieCenterY = outerRadius + margin/2;
       var legendBulletOffset = 30;
       var legendVerticalOffset = outerRadius - margin;
       var legendTextOffset = 20;
