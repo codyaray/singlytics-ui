@@ -4,10 +4,13 @@ append scripts
   script
     var appName = "#{appId}";
   script(src='/javascripts/application.js')
+  script(src='/javascripts/lineGraph.js')
 
 append content
   p looking at application #{appId}
   div.content
+    div.graph-box
+      div#graph.aGraph
     div.graph-box
       h2 Age Demographics
       div.ages

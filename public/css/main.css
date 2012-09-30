@@ -150,11 +150,49 @@ textarea {
      height: 151px;
    }
 
+		
+  /* tell the SVG path to be a thin blue line without any area fill */
+  #graph path {
+  stroke-width: 1;
+  fill: none;
+  }
+			
+  #graph .data1 {
+  stroke: green;
+  }
 
+  #graph .data2 {
+  stroke: orange;
+  }
+			
+  #graph .axis {
+  shape-rendering: crispEdges;
+  }
 
+  #graph .x.axis line {
+  stroke: lightgrey;
+  }
 
+  #graph .x.axis .minor {
+  stroke-opacity: .5;
+  }
 
+  #graph .x.axis path {
+  display: none;
+  }
+			
+  #graph .x.axis text {
+  font-size: 10px;
+  }
 
+  #graph .y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+  }
+			
+  #graph .y.axis text {
+  font-size: 12px;
+  }
 
 
 

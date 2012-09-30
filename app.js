@@ -22,7 +22,7 @@ app.get("/application/json/:id", function (req, res) {
 })
 
 app.get("/event/json/:appId/:eventId", function (req, res) {
-  hype.getEventJson(req.params.siteId, req.params.eventId).pipe(res)
+  hype.getEventJson(req.params.appId, req.params.eventId).pipe(res)
 })
 
 app.get("/application/:id", function (req, res) {
