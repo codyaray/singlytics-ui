@@ -45,15 +45,15 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
 
     var arcSelector = "." + "pie-" + pieName + "-arc-" + indexValue;
     var selectedArc = d3.selectAll(arcSelector);
-    selectedArc.style("fill", "Maroon");
+    selectedArc.style("fill", "#FFD24D");
 
     var bulletSelector = "." + "pie-" + pieName + "-legendBullet-" + indexValue;
     var selectedLegendBullet = d3.selectAll(bulletSelector);
-    selectedLegendBullet.style("fill", "Maroon");
+    selectedLegendBullet.style("fill", "#FFD24D");
 
     var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
     var selectedLegendText = d3.selectAll(textSelector);
-    selectedLegendText.style("fill", "Maroon");
+    selectedLegendText.style("fill", "#FFD24D");
   };
 
   var synchronizedMouseOut = function() {
@@ -72,7 +72,7 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
 
     var textSelector = "." + "pie-" + pieName + "-legendText-" + indexValue;
     var selectedLegendText = d3.selectAll(textSelector);
-    selectedLegendText.style("fill", "Blue");
+    selectedLegendText.style("fill", "#60798C");
   };
 
   var tweenPie = function (b) {
@@ -190,13 +190,23 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
             .attr("color_value", function(d, i) { return colorScale(i); }) // Bar fill color...
             .attr("index_value", function(d, i) { return "index-" + i; })
             .attr("class", function(d, i) { return "pie-" + pieName + "-legendText-index-" + i; })
-            .style("fill", "Blue")
+            .style("fill", "#60798C")
             .style("font", "normal 1.5em Arial")
             .on('mouseover', synchronizedMouseOver)
             .on("mouseout", synchronizedMouseOut);
 
 };
+
+function drawHorizontalBar(){
   
+};
+
+function drawTime(){
+  
+};
+
+//d3.json("/application/json/" + appName, function(json){ 
+
  d3.json("/javascripts/demographics.json", function(json){ 
   var ages = json.demographics.ages;    	
   var genders = json.demographics.gender;
@@ -211,20 +221,7 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
 	 "55to64": 0,
 	 "65andup": 0,		
 	 "unknown": 0 };
-	
-	var gendergroups = {
-	  "male": 0,
-		"female": 0, 
-		"unknown": 0
-	};
-		 
-	var locationgroups = {
-	    "Chicago": 0,
-			"unknown": 0
-		};
 		
-		var count =0;
-  	
   for(age in ages){
 		if(age >= 12 && age <= 17){
 			agegroups["12to17"] += ages[age];
@@ -245,10 +242,20 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
 		}
 	}
 	
+	var gendergroups = {};
+	for(gender in genders){
+	  gendergroups[gender] = 0;
+	}
+	
   for(gender in genders){
 	    gendergroups[gender] += genders[gender];
 	}
 	
+	var locationgroups = {};
+	for (loc in locations) {
+	    locationgroups[loc] = 0;
+	}
+
 	for (loc in locations){
 	    locationgroups[loc] += locations[loc];
 	}
@@ -263,18 +270,19 @@ function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, i
   		{legendLabel: "65+", magnitude: agegroups["65andup"]},
   		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
   
-  var gendergroups = [
-      {legendLabel: "Male", magnitude: gendergroups["male"] },
-      {legendLabel: "Female", magnitude: gendergroups["female"] },
-      {legendLabel: "Unknown", magnitude: gendergroups["unknown"] }];		
-      
-  var locationgroups = [
-      {legendLabel: "Chicago", magnitude: locationgroups["Chicago"]},
-      {legendLabel: "Unknown", magnitude: locationgroups["unknown"]} ];
-	
+  var gengroups = [];
+  for (gender in gendergroups){
+    gengroups.push({legendLabel: gender, magnitude: gendergroups[gender]});
+  }
+  
+  var locgroups = [];
+  for (loc in locationgroups) {
+    locgroups.push({legendLabel: loc, magnitude: locationgroups[loc]});
+  }
+
 	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
-	drawPie("Pie2", gendergroups, "div.genders", "colorScale20", 10, 100, 5, 0);
-	drawPie("Pie3", locationgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
+	drawPie("Pie2", gengroups, "div.genders", "colorScale20", 10, 100, 5, 0);
+	drawPie("Pie3", locgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
 
 });
   
