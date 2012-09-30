@@ -15,7 +15,7 @@ button,
 input,
 select,
 textarea {
-    color: white;
+    color: #444;
     font-family: 'Bubbler One', sans-serif;
 }
 
@@ -109,16 +109,26 @@ textarea {
 
 
    .container {
-     padding: 40px 0px;
-     width: 945px;
+     padding: 15px;
+     width: 905px;
      margin: 0 auto;
      background: #26385c;
+     color: white;
    }
    
-   .content {
-     margin-left: 40px;
-   }
+   .graph-box{
+     background-color: white;
+     padding: 15px;
+     margin-bottom: 15px;
+     color: #444;
+     
 
+     -webkit-border-radius: 12px;
+             border-radius: 12px;
+     -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+     
+   }
+   
    header {
      position: relative;
      z-index: 10;
@@ -332,7 +342,6 @@ textarea {
     
     h1{
         margin-left: 5px;
-        color: white;
         
     }
 
