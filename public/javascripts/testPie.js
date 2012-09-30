@@ -4,51 +4,9 @@
 
     // Data Used for this example...
     
-     d3.json("/javascripts/demographics.json", function(json){ 
-    	    	
-    	var ages = json.demographics.ages;
-    	
-    	var agegroups = {
-			 "12to17": 0,
-			 "18to24": 0,
-			 "25to34": 0,
-			 "35to44": 0,
-			 "45to54": 0,
-			 "55to64": 0,
-			 "65andup": 0 };
-    	
-    	for(age in ages){
-    		if(age >= 12 && age <= 17){
-    			agegroups["12to17"] += ages[age];
-    		} else if(age >= 18 && age <= 24){
-    			agegroups["18to24"] += ages[age];
-    		} else if(age >= 25 && age <= 34){
-    			agegroups["25to34"] += ages[age];
-    		} else if(age >= 35 && age <= 44){
-    			agegroups["35to44"] += ages[age];
-    		} else if(age >= 45 && age <= 54){
-    			agegroups["45to54"] += ages[age];
-    		} else if(age >= 55 && age <= 64){
-    			agegroups["55to64"] += ages[age];
-    		} else if(age >= 65) {
-    			agegroups["65andup"] += ages[age];
-    		}
-    	}
-    	
-    	console.log(agegroups);
- 
-    });
+     
     
-    var dataSet1 = [
-      {legendLabel: "12 - 17", magnitude: 51},
-      {legendLabel: "18 - 24", magnitude: 21},
-      {legendLabel: "25 - 34", magnitude: 31},
-      {legendLabel: "35 - 44", magnitude: 14},
-      {legendLabel: "45 - 54", magnitude: 19},
-      {legendLabel: "55 - 64", magnitude: 47},
-      {legendLabel: "65+", magnitude: 27},
-      {legendLabel: "Unknown", magnitude: 27}];
-
+    
     function drawPie( pieName, dataSet, selectString, colors, margin, outerRadius, innerRadius, sortArcs ) {
 
 // pieName => A unique drawing identifier that has no spaces, no "." and no "#" characters.
@@ -262,4 +220,53 @@ else
 
   };
   
-  drawPie("Pie1", dataSet1, "div.container", "colorScale20", 10, 100, 5, 0);
+  d3.json("/javascripts/demographics.json", function(json){ 
+    	    	
+    	var ages = json.demographics.ages;    	
+    	
+    	var agegroups = {
+			 "12to17": 0,
+			 "18to24": 0,
+			 "25to34": 0,
+			 "35to44": 0,
+			 "45to54": 0,
+			 "55to64": 0,
+			 "65andup": 0,
+			 "unknown": 0 };
+    	
+    	for(age in ages){
+    		if(age >= 12 && age <= 17){
+    			agegroups["12to17"] += ages[age];
+    		} else if(age >= 18 && age <= 24){
+    			agegroups["18to24"] += ages[age];
+    		} else if(age >= 25 && age <= 34){
+    			agegroups["25to34"] += ages[age];
+    		} else if(age >= 35 && age <= 44){
+    			agegroups["35to44"] += ages[age];
+    		} else if(age >= 45 && age <= 54){
+    			agegroups["45to54"] += ages[age];
+    		} else if(age >= 55 && age <= 64){
+    			agegroups["55to64"] += ages[age];
+    		} else if(age >= 65) {
+    			agegroups["65andup"] += ages[age];
+    		} else if(age == "unknown"){
+    			agegroups["unknown"] += ages[age];
+    		}
+    	}
+    	
+    	var agegroups = [
+      		{legendLabel: "12 - 17", magnitude: agegroups["12to17"]},
+      		{legendLabel: "18 - 24", magnitude: agegroups["18to24"]},
+      		{legendLabel: "25 - 34", magnitude: agegroups["25to34"]},
+      		{legendLabel: "35 - 44", magnitude: agegroups["35to44"]},
+      		{legendLabel: "45 - 54", magnitude: agegroups["45to54"]},
+      		{legendLabel: "55 - 64", magnitude: agegroups["55to64"]},
+      		{legendLabel: "65+", magnitude: agegroups["65andup"]},
+      		{legendLabel: "Unknown", magnitude: agegroups["unknown"]} ];
+    	
+    	console.log(agegroups);
+    	
+    	drawPie("Pie1", agegroups, "div.container", "colorScale20", 10, 100, 5, 0);
+ 
+    });
+  
