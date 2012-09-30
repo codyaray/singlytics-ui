@@ -224,6 +224,7 @@ else
     	    	
     	var ages = json.demographics.ages;    	
     	var genders = json.demographics.gender;
+    	var locations = json.demographics.locations;
     	
     	var agegroups = {
 			 "12to17": 0,
@@ -240,6 +241,13 @@ else
 			   "female": 0, 
 			   "unknown": 0
 			 };
+			 
+			 var locationgroups = {
+ 			   "Chicago": 0,
+ 			   "unknown": 0
+ 			 };
+ 			
+ 			var count =0;
     	
     	for(age in ages){
     		if(age >= 12 && age <= 17){
@@ -265,6 +273,10 @@ else
     	    gendergroups[gender] += genders[gender];
     	}
     	
+    	for (loc in locations){
+    	    locationgroups[loc] += locations[loc];
+    	}
+    	
     	var agegroups = [
       		{legendLabel: "12 - 17", magnitude: agegroups["12to17"]},
       		{legendLabel: "18 - 24", magnitude: agegroups["18to24"]},
@@ -279,9 +291,14 @@ else
           {legendLabel: "Male", magnitude: gendergroups["male"] },
           {legendLabel: "Female", magnitude: gendergroups["female"] },
           {legendLabel: "Unknown", magnitude: gendergroups["unknown"] }];		
+          
+      var locationgroups = [
+          {legendLabel: "Chicago", magnitude: locationgroups["Chicago"]},
+          {legendLabel: "Unknown", magnitude: locationgroups["unknown"]} ];
     	
     	drawPie("Pie1", agegroups, "div.ages", "colorScale20", 10, 100, 5, 0);
     	drawPie("Pie2", gendergroups, "div.genders", "colorScale20", 10, 100, 5, 0);
+    	drawPie("Pie3", locationgroups, "div.locations", "colorScale20", 10, 100, 5, 0);
  
     });
   

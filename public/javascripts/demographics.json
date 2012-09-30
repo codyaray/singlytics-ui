@@ -9,8 +9,8 @@
       "male": 38,
       "female": 23
     }, 
-    "location": {
-      "unknown": 0, 
+    "locations": {
+      "unknown": 4, 
       "Chicago": 1
     }, 
     "language": {
